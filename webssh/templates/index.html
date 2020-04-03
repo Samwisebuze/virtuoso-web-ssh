@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WebSSH</title>
+    <link href="static/css/xterm.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/fullscreen.min.css" rel="stylesheet" type="text/css">
+    <!-- <style>
+      .row {
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+
+      .container {
+        margin-top: 20px;
+      }
+
+      .btn-danger {
+        margin-left: 5px;
+      }
+      {% if font.family %}
+      @font-face {
+        font-family: '{{ font.family }}';
+        src: url('{{ font.url }}');
+      }
+
+      body {
+        font-family: '{{ font.family }}';
+      }
+      {% end %}
+    </style> -->
+  </head>
+  <body>
+    <!-- Status message -->
+    <div id="waiter">Connecting ...</div>
+
+    <!-- Window close button -->
+    <!-- <button id="exit-button" class="btn btn-danger">Exit</button> -->
+    <p><i>Close this window to exit</i></p>
+
+    <!-- Web Terminal -->
+    <div class="container">
+      <!-- <div id="status" style="color: red;"></div> -->
+      <div id="terminal"></div>
+    </div>
+
+    <!-- Component to share connection details with back-end
+         This is hidden from users, but still works for starting connections -->
+    <div class="container form-container" style="display: none">
+      <form id="connect" action="" method="post" enctype="multipart/form-data"{% if debug %} novalidate{% end %}>
+        <div class="row" style="display: none; visibility: hidden;">
+          <div class="col">
+            <label for="Hostname">Hostname</label>
+            <input class="form-control" type="text" id="hostname" name="hostname" required>
+          </div>
+
+          <div class="col">
+            <label for="Port">Port</label>
+            <!-- Placeholder for port, the actual Docker port is computed on the back-end -->
+            <input class="form-control" type="number" id="port" name="port" value="22">
+          </div>
+        </div>
+        <div class="row" style="display: none; visibility: hidden;">
+          <div class="col">
+            <label for="Username">Username</label>
+            <input class="form-control" type="text" id="username" name="username" value="foo" required>
+          </div>
+          <div class="col">
+            <label for="Password">Password</label>
+            <input class="form-control" type="password" id="password" name="password" value="foo">
+          </div>
+        </div>
+        <!-- <div class="row" style="display: none; visibility: hidden;">
+          <div class="col">
+            <label for="Username">Private Key</label>
+            <input class="form-control" type="file" id="privatekey" name="privatekey" value="" type="hidden">
+          </div>
+          <div class="col">
+            <label for="Passphrase">Passphrase</label>
+            <input class="form-control" type="password" id="passphrase" name="passphrase" value="" type="hidden">
+          </div>
+        </div> -->
+        <!-- <div class="row" style="display: none; visibility: hidden;">
+          <div class="col">
+            <label for="totp">Totp (time-based one-time password)</label>
+            <input class="form-control" type="password" id="totp" name="totp" value="" type="hidden">
+          </div>
+          <div class="col">
+          </div>
+        </div> -->
+        <input type="hidden" id="term" name="term" value="xterm-256color">
+        {% module xsrf_form_html() %}
+        <button type="submit">Connect</button>
+        <!-- <button type="reset">Reset</button> -->
+      </form>
+    </div>
+
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/xterm.min.js"></script>
+    <script src="static/js/xterm-addon-fit.min.js"></script>
+    <script src="static/js/main.js"></script>
+
+    <script>
+      // Auto submit form if url paramters exist
+      const queryString = window.location.search
+      const urlParams = new URLSearchParams(queryString)
+      const hostname = urlParams.get('hostname')
+      // const port = urlParams.get('port')
+
+      document.getElementById('hostname').setAttribute('value', hostname)
+      // document.getElementById('port').setAttribute('value', port)
+
+      // Connect!
+      setTimeout(() => {
+        $('button[type=submit]').click()
+      }, 500)
+      // 
+    </script>
+
+    <!-- <script>
+      // Little helper
+      $('#exit-button').on('click', () => {
+        window.close()
+      })
+    </script> -->
+  </body>
+</html>
