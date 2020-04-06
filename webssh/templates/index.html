@@ -40,7 +40,7 @@
 
     <!-- Web Terminal -->
     <div class="container">
-      <!-- <div id="status" style="color: red;"></div> -->
+      <div id="status" style="color: red;"></div>
       <div id="terminal"></div>
     </div>
 
@@ -90,7 +90,7 @@
         </div> -->
         <input type="hidden" id="term" name="term" value="xterm-256color">
         {% module xsrf_form_html() %}
-        <button type="submit">Connect</button>
+        <button type="submit" style="display: none; visibility: hidden;">Connect</button>
         <!-- <button type="reset">Reset</button> -->
       </form>
     </div>

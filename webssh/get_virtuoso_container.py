@@ -27,9 +27,8 @@ def get_virtuoso_port(container_id: str) -> str:
 # Get the hostname for the given Docker container id
 #
 def get_virtuoso_hostname(container_id: str) -> str:
-    client = docker.from_env()
+    # client = docker.from_env()
 
-    container = client.containers.get(container_id)
-    ip_address = container.attrs['NetworkSettings']['IPAddress']
-
-    return ip_address
+    # container = client.containers.get(container_id)
+    # ip_address = container.attrs['NetworkSettings']['IPAddress']
+    return 'host.docker.internal'
