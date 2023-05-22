@@ -1,5 +1,5 @@
 paramiko==2.7.1
 tornado==5.1.1; python_version < '3.5'
 tornado==6.0.3; python_version >= '3.5'
-requests==2.23.0
+requests==2.31.0
 docker==4.2.0
